@@ -30,7 +30,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	_, err := mysql.DialCfg(cfg)
 
 	if err != nil {
-		w.Write([]byte(err.Error()))
+		w.Write([]byte("sha bi"))
 		return
 	}
 
