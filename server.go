@@ -1,6 +1,8 @@
 package main
 
 import (
+	//"database/sql"
+	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	"net/http"
 )
 
@@ -19,7 +21,30 @@ func handler(w http.ResponseWriter, r * http.Request) {
 }
 
 func signing(w http.ResponseWriter, r * http.Request)  {
-	
+	println("linked.")
+	var name = r.FormValue("name")
+	var psw = r.FormValue("psword")
+
+	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "a")
+	cfg.DBName = "users"
+	_, err := mysql.DialCfg(cfg)
+
+	if err != nil {
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	println(name, psw)
+
+
+
+	//db, err := sql.Open("firstnote", "root:root@/uestcbook")
+	//
+	//result, err := db.Exec(
+	//	"INSERT INTO users (name, age) VALUES (?, ?)",
+	//	"gopher",
+	//	27,
+	//)
 }
 
 
