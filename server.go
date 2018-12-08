@@ -34,6 +34,8 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		return
 	}
 
+
+	w.Write([]byte("linked to the fxcking database..."))
 	println(name, psw)
 
 
