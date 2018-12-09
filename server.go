@@ -39,9 +39,9 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 	var q = "select password from wholepeople where username='" + name + "'"
 	jpj, err := db.Query(q)
 
-	if err == nil {
+	if err != nil {
 		w.Write([]byte("-1"))
-		println("connecting pro." )
+		println("connecting pro. "  + err.Error())
 		return
 	}
 
