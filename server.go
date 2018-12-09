@@ -31,7 +31,8 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	_, err := mysql.DialCfg(cfg)
 
 	if err != nil {
-		//w.Write([]byte("sha bi"))
+		w.Write([]byte("sha bi"))
+		println("hmmmm")
 		return
 	}
 
@@ -40,6 +41,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	println(name, psw)
 
 
+	println("cnm...")
 	w.Write([]byte("linked..."))
 
 	//db, err := sql.Open("firstnote", "root:root@/uestcbook")
