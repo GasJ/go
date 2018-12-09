@@ -38,7 +38,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 	table, err := db.Query("SHOW TABLES")
 
-	if err == nil {
+	if err != nil {
 		w.Write([]byte("sorry, cannot"))
 		println("we cannot get in users")
 		return
@@ -47,7 +47,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	var dbName string
 	table.Scan(dbName)
 	w.Write([]byte(dbName))
-	
+
 	//rows, err := db.Query("SHOW DATABASES")
 	//if err != nil {
 	//	http.Error(w, fmt.Sprintf("Could not query db: %v", err), 500)
