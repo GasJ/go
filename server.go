@@ -32,6 +32,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 	if err != nil {
 		w.Write([]byte("sha bi"))
+		println(err.Error())
 		println("hmmmm")
 		return
 	}
