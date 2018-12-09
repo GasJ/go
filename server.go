@@ -39,7 +39,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 	var q = "select password from wholepeople where username=" + name
 	_, err = db.Query(q)
 
-	if err == nil {
+	if err != nil {
 		println("user exist, cannot create")
 		w.Write([]byte("-1"))
 		return
