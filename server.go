@@ -24,8 +24,8 @@ func handler(w http.ResponseWriter, r * http.Request) {
 
 func signing(w http.ResponseWriter, r * http.Request)  {
 	println("linked.")
-	var name = r.FormValue("name")
-	var psw = r.FormValue("psword")
+	//var name = r.FormValue("name")
+	//var psw = r.FormValue("psword")
 
 	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
 
