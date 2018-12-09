@@ -22,7 +22,6 @@ func handler(w http.ResponseWriter, r * http.Request) {
 
 func signing(w http.ResponseWriter, r * http.Request)  {
 	println("linked.")
-	w.Write([]byte("linked..."))
 	var name = r.FormValue("name")
 	var psw = r.FormValue("psword")
 
@@ -41,6 +40,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	println(name, psw)
 
 
+	w.Write([]byte("linked..."))
 
 	//db, err := sql.Open("firstnote", "root:root@/uestcbook")
 	//
