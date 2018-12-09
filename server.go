@@ -36,10 +36,10 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 		return
 	}
 
-	var q = "select password from wholepeople where username=" + name
+	var q = "select password from wholepeople where username='" + name + "'"
 	_, err = db.Query(q)
 
-	if err != nil {
+	if err == nil {
 		w.Write([]byte("shabi"))
 		println("user exist, cannot create")
 		return
