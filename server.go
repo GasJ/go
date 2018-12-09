@@ -25,7 +25,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	var name = r.FormValue("name")
 	var psw = r.FormValue("psword")
 
-	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "a")
+	cfg := mysql.Cfg("104.154.216.44", "starvingmonkey", "a")
 
 	cfg.DBName = "users"
 	_, err := mysql.DialCfg(cfg)
