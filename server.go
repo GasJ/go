@@ -44,7 +44,10 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		return
 	}
 
+
+
 	var dbName string
+	table.Next()
 	table.Scan(dbName)
 	w.Write([]byte(dbName))
 
