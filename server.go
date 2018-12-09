@@ -44,8 +44,10 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 		w.Write([]byte("-1"))
 		return
 	}
+	
+	q = "INSERT INTO wholepeople (username, password) VALUES (\"" + name + "\", " + psw + "\")"
 
-	q = "INSERT INTO wholepeople (username, password) VALUES (" + name + ", " + psw + ")"
+
 	_, err = db.Query(q)
 
 	if err == nil{
@@ -159,7 +161,13 @@ func main() {
 	http.HandleFunc("/signin", signing)
 	http.HandleFunc("/create", creating)
 
+	//var name  = "jojo"
+	//var psw = "heh"
+	//println("INSERT INTO wholepeople (username, password) VALUES (\"" + name + "\", " + psw + "\")")
+
 	http.ListenAndServe(":8080", nil)
 	//http.ListenAndServeTLS(":443", "ssl.crt", "ssl.key", nil)
+
+
 }
 // [END main]
