@@ -55,6 +55,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 	}
 
 	println("shabi....")
+	println(err.Error())
 	w.Write([]byte("shabi"))
 }
 
