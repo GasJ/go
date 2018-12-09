@@ -21,7 +21,7 @@ func handler(w http.ResponseWriter, r * http.Request) {
 
 func signing(w http.ResponseWriter, r * http.Request)  {
 	println("linked.")
-	//var name = r.FormValue("name")
+	var name = r.FormValue("name")
 	//var psw = r.FormValue("psword")
 
 	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
@@ -36,16 +36,31 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		return
 	}
 
-	table, err := db.Query("SHOW TABLES")
+	var q = "select password from wholepeople where username=" + name
+	pasw, err := db.Query(q)
 
+	if err != nil {
+		println(err.Error())
+		println("something wrong with username or passworld")
+		w.Write([]byte("-1"))
+		return
+	}
+	var dbName string
+	pasw.Next()
+	pasw.Scan(&dbName)
+
+	println(dbName)
+	w.Write([]byte(dbName))
+
+
+
+/* it seems that we do in the users database ~~~ happy!
+	table, err := db.Query("SHOW TABLES")
 	if err != nil {
 		w.Write([]byte("sorry, cannot"))
 		println("we cannot get in users")
 		return
 	}
-
-
-
 	var dbName string
 	table.Next()
 	err = table.Scan(&dbName)
@@ -55,6 +70,11 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	}
 	println(dbName)
 	w.Write([]byte(dbName))
+
+test finished */
+
+
+
 
 	//rows, err := db.Query("SHOW DATABASES")
 	//if err != nil {
