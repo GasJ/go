@@ -22,21 +22,22 @@ func handler(w http.ResponseWriter, r * http.Request) {
 
 func signing(w http.ResponseWriter, r * http.Request)  {
 	println("linked.")
+	w.Write([]byte("linked..."))
 	var name = r.FormValue("name")
 	var psw = r.FormValue("psword")
 
 	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "a")
-	w.Write([]byte("here"))
+
 	cfg.DBName = "users"
 	_, err := mysql.DialCfg(cfg)
 
 	if err != nil {
-		w.Write([]byte("sha bi"))
+		//w.Write([]byte("sha bi"))
 		return
 	}
 
 
-	w.Write([]byte("linked to the fxcking database..."))
+	//w.Write([]byte("linked to the fxcking database..."))
 	println(name, psw)
 
 
