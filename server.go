@@ -78,7 +78,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		return
 	}
 
-	var q = "select password from wholepeople where username=" + name
+	var q = "select password from wholepeople where username = '" + name + "'"
 	pasw, err := db.Query(q)
 
 	if err != nil {
