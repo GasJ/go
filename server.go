@@ -40,8 +40,8 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 	_, err = db.Query(q)
 
 	if err != nil {
+		w.Write([]byte("shabi"))
 		println("user exist, cannot create")
-		w.Write([]byte("-1"))
 		return
 	}
 
@@ -58,7 +58,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 
 	println("shabi....")
 	println(err.Error())
-	w.Write([]byte("shabi"))
+	w.Write([]byte("-1"))
 }
 
 func signing(w http.ResponseWriter, r * http.Request)  {
