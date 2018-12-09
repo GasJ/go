@@ -19,8 +19,47 @@ func handler(w http.ResponseWriter, r * http.Request) {
 	w.Write([]byte("hey, friend."))
 }
 
+func creating(w http.ResponseWriter, r * http.Request)  {
+	println("linked for creating.")
+	var name = r.FormValue("name")
+	var psw = r.FormValue("psword")
+
+	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+
+	cfg.DBName = "users"
+	db, err := mysql.DialCfg(cfg)
+
+	if err != nil {
+		w.Write([]byte("-1"))
+		println(err.Error())
+		println("we cannot get the database")
+		return
+	}
+
+	var q = "select password from wholepeople where username=" + name
+	_, err = db.Query(q)
+
+	if err == nil {
+		println("user exist, cannot create")
+		w.Write([]byte("-1"))
+		return
+	}
+
+	q = "INSERT INTO wholepeople (username, password) VALUES (" + name + ", " + psw + ")"
+	_, err = db.Query(q)
+
+	if err == nil{
+		println("succed.")
+		w.Write([]byte("1"))
+		return
+	}
+
+	println("shabi....")
+	w.Write([]byte("shabi"))
+}
+
 func signing(w http.ResponseWriter, r * http.Request)  {
-	println("linked.")
+	println("linked for signing.")
 	var name = r.FormValue("name")
 	//var psw = r.FormValue("psword")
 
@@ -117,6 +156,8 @@ test finished */
 func main() {
 	http.HandleFunc("/stickynote", handler)
 	http.HandleFunc("/signin", signing)
+	http.HandleFunc("/create", creating)
+
 	http.ListenAndServe(":8080", nil)
 	//http.ListenAndServeTLS(":443", "ssl.crt", "ssl.key", nil)
 }
