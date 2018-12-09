@@ -48,7 +48,12 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 	var dbName string
 	table.Next()
-	table.Scan(dbName)
+	err = table.Scan(dbName)
+	if err != nil{
+		println("error for table" + err.Error())
+		w.Write([]byte("error"))
+	}
+	println(dbName)
 	w.Write([]byte(dbName))
 
 	//rows, err := db.Query("SHOW DATABASES")
