@@ -64,7 +64,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 func signing(w http.ResponseWriter, r * http.Request)  {
 	println("linked for signing.")
 	var name = r.FormValue("name")
-	//var psw = r.FormValue("psword")
+	var psw = r.FormValue("psword")
 
 	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
 
@@ -91,8 +91,15 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	pasw.Next()
 	pasw.Scan(&dbName)
 
-	println(dbName)
-	w.Write([]byte(dbName))
+	if psw == dbName {
+		println("right user is coming in")
+		w.Write([]byte("1"))
+	}else {
+		println(dbName + " is not a correct psw")
+		w.Write([]byte("shabi, hehe, -1"))
+	}
+
+
 
 
 
