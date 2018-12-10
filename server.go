@@ -92,7 +92,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 
 
-	var q = "select password from wholepeople where username = '" + name + "'"
+	var q = "select password, imageid from wholepeople where username = '" + name + "'"
 	pasw, err := db.Query(q)
 	defer pasw.Close()
 
@@ -104,37 +104,15 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		return
 	}
 	var dbpsw string
+	var id string
 	pasw.Next()
-	err = pasw.Scan(&dbpsw)
+	err = pasw.Scan(&dbpsw, &id)
 	if err != nil{
-		println(dbpsw + err.Error())
+		println("shabi " + err.Error())
 	}
-
-	db.Close()
 
 	if psw == dbpsw {
 		println("right user is coming in")
-
-		aa, err := mysql.DialCfg(cfg)
-
-
-		q = "select imageid from wholepeople where username = '" + name + "';"
-		println(q)
-		image, err := aa.Query(q)
-		defer image.Close()
-
-		if err != nil{
-			println("cnm, the problem i workd for hours is: " + err.Error())
-		}
-
-		var id string
-		for image.Next(){
-			err := image.Scan(id)
-			if err != nil{
-				println("cnm shab " + err.Error())
-			}
-			println(id)
-		}
 
 		switch id {
 		case "1":
