@@ -45,12 +45,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="3201" />
+          <entry key="go" value="3274" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="3201" />
+          <entry key="Go" value="3274" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
@@ -65,8 +65,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="127" column="10" selection-start-line="127" selection-start-column="10" selection-end-line="127" selection-end-column="10" />
+            <state relative-caret-position="363">
+              <caret line="136" column="19" lean-forward="true" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
               <folding>
                 <element signature="e#14#115#0" expanded="true" />
                 <element signature="n#!!block;n#handler#0" />
@@ -103,7 +103,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="1" />
-    <option name="y" value="257" />
+    <option name="y" value="355" />
     <option name="width" value="1252" />
     <option name="height" value="724" />
   </component>
@@ -204,7 +204,7 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="257" width="1252" height="724" extended-state="0" />
+    <frame x="1" y="355" width="1252" height="724" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30082646" />
@@ -240,8 +240,8 @@
     <entry file="file://$PROJECT_DIR$/sticky.go" />
     <entry file="file://$PROJECT_DIR$/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="127" column="10" selection-start-line="127" selection-start-column="10" selection-end-line="127" selection-end-column="10" />
+        <state relative-caret-position="363">
+          <caret line="136" column="19" lean-forward="true" selection-start-line="136" selection-start-column="19" selection-end-line="136" selection-end-column="19" />
           <folding>
             <element signature="e#14#115#0" expanded="true" />
             <element signature="n#!!block;n#handler#0" />

@@ -83,16 +83,18 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 	cfg.DBName = "users"
 	db, err := mysql.DialCfg(cfg)
-
 	if err != nil {
 		w.Write([]byte("-1"))
 		println(err.Error())
 		println("we cannot get the database")
 		return
 	}
+	defer db.Close()
+
 
 	var q = "select password from wholepeople where username = '" + name + "'"
 	pasw, err := db.Query(q)
+	defer pasw.Close()
 
 
 	if err != nil {
@@ -104,30 +106,33 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	var dbpsw string
 	pasw.Next()
 	pasw.Scan(&dbpsw)
-	pasw.Close()
-	db.Close()
 	println(dbpsw)
 
 	if psw == dbpsw {
 		println("right user is coming in")
 
 		db, err := mysql.DialCfg(cfg)
-		db.Begin()
+
+
 		//q = "select imageid from wholepeople where username = '" + name + "';"
 		q = "select password from wholepeople where username = '" + name + "'"
 		println(q)
 		image, err := db.Query(q)
+		defer image.Close()
 
 
 		if err != nil{
 			println("cnm, the problem i workd for hours is: " + err.Error())
 		}
 
-
 		var id string
-		//image.Next()
-		image.Scan(id)
-		image.Close()
+		for image.Next(){
+			err := image.Scan(id)
+			if err != nil{
+				println("cnm shab " + err.Error())
+			}
+			println(id)
+		}
 
 		switch id {
 		case "1":
