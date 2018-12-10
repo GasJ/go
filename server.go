@@ -517,7 +517,7 @@ func editplans(w http.ResponseWriter, r * http.Request){
 					println("we cannot add disc")
 				}
 				w.Write([]byte("1"))
-		}
+		}}
 	}
 	err = rows.Err()
 	if err != nil {
