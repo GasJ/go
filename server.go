@@ -107,6 +107,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	if psw == dbpsw {
 		println("right user is coming in")
 		q = "select imageid from wholepeople where username = '" + name + "'"
+		println(q)
 		image, err := db.Query(q)
 
 		if err != nil{
@@ -115,10 +116,10 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 		var id string
 		image.Next()
-		hehe, err := image.Columns()
-		println(len(hehe), hehe[0])
+		//hehe, err := image.Columns()
+		//println(len(hehe), hehe[0])
 
-		//image.Scan(dbpsw)
+		image.Scan(id)
 
 		switch id {
 		case "1":
