@@ -113,8 +113,9 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 		var id string
 		image.Next()
-		image.Scan(id)
 		image.Next()
+		image.Scan(id)
+
 		image.Scan(dbpsw)
 
 		switch id {
