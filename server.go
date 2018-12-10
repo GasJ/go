@@ -135,13 +135,13 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		image.Scan(hehe)
 
 		println("third: " + " " + hehe, id)
-
-		for image.Next() {
+		var x = 1
+		for x < 10{
 			image.Next()
 			image.Scan(id)
 			image.Scan(hehe)
-
-			println("ns: " + " " + hehe, id)
+			x++
+			println(x, "s: " + " " + hehe, id)
 		}
 
 		if image.NextResultSet() {
