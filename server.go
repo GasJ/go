@@ -121,6 +121,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		q = "select password from wholepeople where username = '" + name + "'"
 		println(q)
 		image, err := db.Query(q)
+		jojo, err := db.Query(q)
 		defer image.Close()
 
 
@@ -130,7 +131,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 		var id string
 		for image.Next(){
-			err := image.Scan(id)
+			err := jojo.Scan(id)
 			if err != nil{
 				println("cnm shab " + err.Error())
 			}
