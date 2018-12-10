@@ -104,7 +104,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 	if psw == dbpsw {
 		println("right user is coming in")
-		q = "select imageid from wholepeopl where username = '" + name + "'"
+		q = "select imageid from wholepeople where username = \"" + name + "\""
 		image, _ := db.Query(q)
 		var id int
 		//image.Next()
