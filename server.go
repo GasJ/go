@@ -105,7 +105,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	}
 	var dbpsw string
 	pasw.Next()
-	err := pasw.Scan(&dbpsw)
+	err = pasw.Scan(&dbpsw)
 	if err != nil{
 		println(dbpsw + err.Error())
 	}
