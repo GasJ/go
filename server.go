@@ -370,6 +370,9 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 		if err != nil{
 			println("shabi " + err.Error())
 			//jo = false
+			if err.Error() == "sql: Rows are closed"{
+				jo=false
+			}
 		}
 		if pn == ""{
 			jo = false
