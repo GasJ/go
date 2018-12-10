@@ -106,39 +106,39 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		println("right user is coming in")
 		q = "select imageid from wholepeople where username = \"" + name + "\""
 		image, _ := db.Query(q)
-		var id int
+		var id string
 		image.Next()
 		image.Scan(id)
 
 		switch id {
-		case 1:
+		case "1":
 			w.Write([]byte("11"))
 			println("user go with an image")
-		case 2:
+		case "2":
 			w.Write([]byte("12"))
 			println("user go with an image")
-		case 3:
+		case "3":
 			w.Write([]byte("13"))
 			println("user go with an image")
-		case 4:
+		case "4":
 			w.Write([]byte("14"))
 			println("user go with an image")
-		case 5:
+		case "5":
 			w.Write([]byte("15"))
 			println("user go with an image")
-		case 6:
+		case "6":
 			w.Write([]byte("16"))
 			println("user go with an image")
-		case 7:
+		case "7":
 			w.Write([]byte("17"))
 			println("user go with an image")
-		case 8:
+		case "8":
 			w.Write([]byte("18"))
 			println("user go with an image")
-		case 9:
+		case "9":
 			w.Write([]byte("19"))
 			println("user go with an image")
-		case 10:
+		case "10":
 			w.Write([]byte("110"))
 			println("user go with an image")
 		default:
