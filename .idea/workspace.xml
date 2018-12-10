@@ -45,12 +45,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="4906" />
+          <entry key="go" value="4962" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="4906" />
+          <entry key="Go" value="4962" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
@@ -66,8 +66,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="391" column="5" lean-forward="true" selection-start-line="391" selection-start-column="5" selection-end-line="391" selection-end-column="5" />
+            <state relative-caret-position="401">
+              <caret line="495" column="5" selection-start-line="495" selection-start-column="5" selection-end-line="495" selection-end-column="5" />
               <folding>
                 <element signature="e#14#115#0" expanded="true" />
                 <element signature="n#!!block;n#handler#0" />
@@ -75,7 +75,6 @@
                 <element signature="n#!!block;n#signing#0" />
                 <element signature="e#4416#4421#0" />
                 <element signature="n#!!block;n#createplan#0" />
-                <element signature="n#!!block;n#editplans#0" />
                 <element signature="n#!!block;n#rmplan#0" />
               </folding>
             </state>
@@ -107,8 +106,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="48" />
-    <option name="y" value="456" />
+    <option name="x" value="60" />
+    <option name="y" value="189" />
     <option name="width" value="1252" />
     <option name="height" value="694" />
   </component>
@@ -209,7 +208,7 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="48" y="456" width="1252" height="694" extended-state="0" />
+    <frame x="60" y="189" width="1252" height="694" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30082646" />
@@ -245,8 +244,8 @@
     <entry file="file://$PROJECT_DIR$/sticky.go" />
     <entry file="file://$PROJECT_DIR$/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="391" column="5" lean-forward="true" selection-start-line="391" selection-start-column="5" selection-end-line="391" selection-end-column="5" />
+        <state relative-caret-position="401">
+          <caret line="495" column="5" selection-start-line="495" selection-start-column="5" selection-end-line="495" selection-end-column="5" />
           <folding>
             <element signature="e#14#115#0" expanded="true" />
             <element signature="n#!!block;n#handler#0" />
@@ -254,7 +253,6 @@
             <element signature="n#!!block;n#signing#0" />
             <element signature="e#4416#4421#0" />
             <element signature="n#!!block;n#createplan#0" />
-            <element signature="n#!!block;n#editplans#0" />
             <element signature="n#!!block;n#rmplan#0" />
           </folding>
         </state>

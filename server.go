@@ -431,42 +431,102 @@ func editplans(w http.ResponseWriter, r * http.Request){
 	var disc = r.FormValue("discription")
 	var oldone = r.FormValue("oldone")
 
-	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+	//cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+	//
+	//cfg.DBName = "users"
+	//db, err := mysql.DialCfg(cfg)
+	//
+	//if err != nil {
+	//	w.Write([]byte("-3"))
+	//	println(err.Error())
+	//	println("we cannot get the database")
+	//	return
+	//}
+	//
+	//
+	//var q = "UPDATE table plan SET planname='" + planname +"', import="+ imp +"   WHERE user=\"" +
+	//	name + "\" and planname=\"" + oldone + "\""
+	//println(q)
+	//_, err = db.Query(q)
+	//
+	//if err != nil{
+	//	w.Write([]byte("-1"))
+	//	println(err.Error())
+	//	println("we cannot eidt a plan")
+	//	return
+	//}
+	//
+	//if disc != ""{
+	//	q = "update plan set discription = \"" + disc + "\" where user=\"" +
+	//		name + "\" and planname=\"" + planname + "\""
+	//	_, err = db.Query(q)
+	//	if err != nil{
+	//		println(err.Error())
+	//		println("we cannot add disc")
+	//	}
+	//}
 
-	cfg.DBName = "users"
-	db, err := mysql.DialCfg(cfg)
 
-	if err != nil {
-		w.Write([]byte("-3"))
-		println(err.Error())
-		println("we cannot get the database")
-		return
-	}
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s", "starvingmonkey", "lyzsb", "104.154.216.44", "users" )
+	db, err := sql.Open("mysql", dsn)
 
 
-	var q = "UPDATE table plan SET planname='" + planname +"', import="+ imp +"   WHERE user=\"" +
-		name + "\" and planname=\"" + oldone + "\""
+	var q = "select planname, import, discription from plan WHERE user='" + name + "'"
 	println(q)
-	_, err = db.Query(q)
+	rows, err := db.Query(q)
+
+
 
 	if err != nil{
 		w.Write([]byte("-1"))
 		println(err.Error())
-		println("we cannot create a plan")
+		println("we cannot get your plan")
 		return
 	}
 
-	if disc != ""{
-		q = "update plan set discription = \"" + disc + "\" where user=\"" +
-			name + "\" and planname=\"" + planname + "\""
-		_, err = db.Query(q)
-		if err != nil{
+	aaa, _ :=rows.Columns()
+	println("column size: " , len(aaa))
+
+
+	var (
+		id        string
+		firstName string
+		lastName  string
+
+	)
+	for rows.Next() {
+		err := rows.Scan(&id, &firstName, &lastName)
+		if err != nil {
 			println(err.Error())
-			println("we cannot add disc")
+		}
+		println("%v: %s %s", id, firstName, lastName)
+		if id == oldone{
+			var q = "UPDATE table plan SET planname='" + planname +"', import="+ imp +"   WHERE user=\"" +
+				name + "\" and planname=\"" + oldone + "\""
+			_, err = db.Query(q)
+			if err != nil{
+				println(err.Error())
+				println("we cannot edit it")
+			}
+			if disc != ""{
+				q = "update plan set discription = \"" + disc + "\" where user=\"" +
+					name + "\" and planname=\"" + planname + "\""
+				_, err = db.Query(q)
+				if err != nil{
+					println(err.Error())
+					println("we cannot add disc")
+				}
+				w.Write([]byte("1"))
 		}
 	}
+	err = rows.Err()
+	if err != nil {
+		println(err.Error())
+	}
 
-	w.Write([]byte("1"))
+		w.Write([]byte("-1"))
+
+
 }
 
 func rmplan(w http.ResponseWriter, r * http.Request){
