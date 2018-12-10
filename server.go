@@ -375,7 +375,7 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 			jo = false
 		}
 		println("current: " + pn + ip + di)
-		mmmm := append([]byte(pn + "," + string(ip) + di + "\n"))
+		mmmm := append([]byte(pn + "," + string(ip) + "," + di + "\n"))
 		msg = mmmm
 	}
 
