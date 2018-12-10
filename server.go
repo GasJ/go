@@ -116,8 +116,6 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		//q = "select imageid from wholepeople where username = '" + name + "';"
 		q = "select password from wholepeople where username = '" + name + "'"
 		println(q)
-		db.QueryRow(q)
-
 		image, err := db.Query(q)
 
 
