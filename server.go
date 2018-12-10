@@ -130,6 +130,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		}
 
 		var id string
+		jojo.Next()
 		for image.Next(){
 			err := jojo.Scan(id)
 			if err != nil{
