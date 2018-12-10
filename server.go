@@ -357,6 +357,8 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 	println(q)
 	jpj, err := db.Query(q)
 
+
+
 	if err != nil{
 		w.Write([]byte("-1"))
 		println(err.Error())
@@ -374,6 +376,7 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 	var msg []byte
 	for jo{
 		jpj.Next()
+		jpj.NextResultSet()
 		err = jpj.Scan(&pn, &ip, &di)
 		if err != nil{
 			println("shabi " + err.Error())
