@@ -151,6 +151,19 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 			println(id)
 		}
 
+		//test:
+		db.Begin()
+		var q = "select password, imageid from wholepeople where username = 'Admin'"
+		test, _:= db.Query(q)
+
+		test.Next()
+		err := test.Scan(&dbpsw, &id)
+
+		if err != nil{
+			println("shabia " + err.Error())
+		}
+		println(dbpsw + id +"hehe")
+
 	}else {
 		println(dbpsw + " is not a correct psw")
 		w.Write([]byte("shabi, hehe, -1"))
