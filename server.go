@@ -41,13 +41,10 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 		println("we cannot get user lists")
 		return
 	}
-
-	aaa, _ :=rows.Columns()
-	println("column size: " , len(aaa))
-
-
+	//aaa, _ :=rows.Columns()
+	//println("column size: " , len(aaa))
 	var (
-		id        string
+		id  string
 
 	)
 
