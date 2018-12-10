@@ -113,7 +113,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 		var id string
 		hehe, err := image.Columns()
-		println(hehe)
+		println(len(hehe), hehe[0], hehe[1])
 
 		//image.Scan(dbpsw)
 
