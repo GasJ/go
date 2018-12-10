@@ -284,8 +284,8 @@ func createplan(w http.ResponseWriter, r * http.Request){
 	jpj.Next()
 	jpj.Scan(&dbName)
 
-	if dbName != "" {
-		println("it exists, and it is: ... " + dbName )
+	if dbName == name {
+		println("it exists, and it is: ... " + dbName + name )
 		w.Write([]byte("-1"))
 		return
 	}
