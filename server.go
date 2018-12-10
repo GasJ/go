@@ -112,11 +112,10 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		}
 
 		var id string
-		image.Next()
-		image.Next()
-		image.Scan(id)
+		hehe, err := image.Columns()
+		println(hehe)
 
-		image.Scan(dbpsw)
+		//image.Scan(dbpsw)
 
 		switch id {
 		case "1":
