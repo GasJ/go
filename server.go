@@ -122,19 +122,27 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 
 
-		println("first: %d" + " " + hehe, id)
+		println("first: " + " " + hehe, id)
 
 		image.Next()
 		image.Scan(id)
 		image.Scan(hehe)
 
-		println("second: %d" + " " + hehe, id)
+		println("second: " + " " + hehe, id)
 
 		image.Next()
 		image.Scan(id)
 		image.Scan(hehe)
 
-		println("third: %d" + " " + hehe, id)
+		println("third: " + " " + hehe, id)
+
+		for image.Next() {
+			image.Next()
+			image.Scan(id)
+			image.Scan(hehe)
+
+			println("ns: " + " " + hehe, id)
+		}
 
 		if image.NextResultSet() {
 			println("cnm")
