@@ -367,6 +367,7 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 	for jo{
 		jpj.Next()
 		jpj.Next()
+		jpj.Next()
 		err = jpj.Scan(&pn, &ip, &di)
 		if err != nil{
 			println("shabi " + err.Error())
