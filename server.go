@@ -352,7 +352,7 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s", "starvingmonkey", "lyzsb", "104.154.216.44" )
 	db, err := sql.Open("mysql", dsn)
 
-	_, err = db.Exec(fmt.Sprintf("USE %s", "firstnote"))
+	_, err = db.Exec("use uers")
 
 	var q = "select planname, import, discription from plan WHERE user='" + name + "'"
 	println(q)
