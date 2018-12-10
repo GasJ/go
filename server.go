@@ -91,6 +91,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 	var q = "select password from wholepeople where username = '" + name + "'"
 	pasw, err := db.Query(q)
+	pasw.Close()
 
 	if err != nil {
 		println(err.Error())
@@ -101,7 +102,8 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	var dbpsw string
 	pasw.Next()
 	pasw.Scan(&dbpsw)
-	pasw.Close()
+
+	db.Close()
 	//haha, err := pasw.Columns()
 	//println(haha[0])
 
@@ -111,6 +113,9 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		q = "select password from wholepeople where username = '" + name + "'"
 		println(q)
 		image, err := db.Query(q)
+		image.Close()
+
+
 
 		if err != nil{
 			println("cnm, the problem i workd for hours is: " + err.Error())
