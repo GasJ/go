@@ -325,7 +325,7 @@ func main() {
 	http.HandleFunc("/signin", signing)
 	http.HandleFunc("/create", creating)
 	http.HandleFunc("/welcome", welc)
-	http.HandleFunc("/cards/createplan", createplan)
+	http.HandleFunc("/cardscreate", createplan)
 	http.HandleFunc("/cards/getwholeplan", getwhole)
 
 	start := time.Now()
