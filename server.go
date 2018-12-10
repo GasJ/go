@@ -116,9 +116,6 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 		var id string
 		image.Next()
-		//hehe, err := image.Columns()
-		//println(len(hehe), hehe[0])
-
 		image.Scan(id)
 
 		switch id {
@@ -155,7 +152,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		default:
 			w.Write([]byte("111"))
 			println("user go without an image")
-			println(id, dbpsw)
+			println(id)
 		}
 
 	}else {
