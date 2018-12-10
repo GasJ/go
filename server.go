@@ -270,7 +270,7 @@ func createplan(w http.ResponseWriter, r * http.Request){
 
 
 
-	var biubiu = "SELECT * from plan Where user = '" + name + "' and planname = '" + planname + "'"
+	var biubiu = "SELECT user from plan Where planname = '" + planname + "'"
 	jpj, err := db.Query(biubiu)
 
 	if err != nil{
