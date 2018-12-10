@@ -1,10 +1,11 @@
 package main
 
 import (
+	"database/sql"
+	"fmt"
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	"net/http"
 	"time"
-
 )
 
 // [START handler]
@@ -332,21 +333,24 @@ func createplan(w http.ResponseWriter, r * http.Request){
 }
 
 func getwhole(w http.ResponseWriter, r * http.Request){
-	println("linked for creating plan.")
+	println("linked for whole plans.")
 	var name = r.FormValue("name")
 
-	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+	//cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+	//
+	//cfg.DBName = "users"
+	//db, err := mysql.DialCfg(cfg)
+	//
+	//if err != nil {
+	//	w.Write([]byte("-3"))
+	//	println(err.Error())
+	//	println("we cannot get the database")
+	//	return
+	//}
 
-	cfg.DBName = "users"
-	db, err := mysql.DialCfg(cfg)
 
-	if err != nil {
-		w.Write([]byte("-3"))
-		println(err.Error())
-		println("we cannot get the database")
-		return
-	}
-
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s", "starvingmonkey", "lyzsb", "glossy-radio-224901:us-central1:firstnote" )
+	db, err := sql.Open("mysql", dsn)
 
 	var q = "select planname, import, discription from plan WHERE user='" + name + "'"
 	println(q)
@@ -380,7 +384,6 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 		if pn == ""{
 			jo = false
 		}
-
 		println("current: " + pn + ip + di)
 		mmmm := append([]byte(pn + "," + string(ip) + "," + di + "\n"))
 		msg = mmmm
