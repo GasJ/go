@@ -125,7 +125,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 
 		var id string
-		image.Next()
+		//image.Next()
 		image.Scan(id)
 		image.Close()
 
