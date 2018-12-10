@@ -107,7 +107,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		q = "select imageid from wholepeople where username = \"" + name + "\""
 		image, _ := db.Query(q)
 		var id int
-		//image.Next()
+		image.Next()
 		image.Scan(id)
 
 		switch id {
