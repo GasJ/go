@@ -272,7 +272,7 @@ func createplan(w http.ResponseWriter, r * http.Request){
 	var biubiu = "SELECT * from plan Where user = '" + name + "' and planname = '" + planname + "'"
 	_, err = db.Query(biubiu)
 
-	if err != nil{
+	if err == nil{
 		w.Write([]byte("-2"))
 		println("it exists...")
 		return
