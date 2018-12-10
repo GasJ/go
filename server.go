@@ -111,11 +111,16 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 			println("cnm, the problem i workd for hours is: " + err.Error())
 		}
 
+		image.Close()
+
 		var id int
 		var hehe string
 		//image.Next()
 		image.Scan(id)
 		image.Scan(hehe)
+
+
+
 
 		println("first: %d" + " " + hehe, id)
 
