@@ -51,7 +51,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 	jpj.Next()
 	jpj.Scan(&dbName)
 
-	if dbName != "" {
+	if dbName == name {
 		println("dbname is: ... " + dbName )
 		w.Write([]byte("shabi"))
 		return
@@ -274,8 +274,8 @@ func createplan(w http.ResponseWriter, r * http.Request){
 	jpj, err := db.Query(biubiu)
 
 	if err != nil{
-		w.Write([]byte("-3"))
-		println("databasepro...")
+		w.Write([]byte("-2"))
+		println("cannot get...")
 		return
 	}
 
@@ -329,6 +329,86 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 
 }
 
+func editplans(w http.ResponseWriter, r * http.Request){
+	println("linked for creating plan.")
+	var name = r.FormValue("name")
+	var planname = r.FormValue("planname")
+	var imp = r.FormValue("importance")
+	var disc = r.FormValue("discription")
+
+	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+
+	cfg.DBName = "users"
+	db, err := mysql.DialCfg(cfg)
+
+	if err != nil {
+		w.Write([]byte("-3"))
+		println(err.Error())
+		println("we cannot get the database")
+		return
+	}
+
+
+
+	var biubiu = "SELECT user from plan Where planname = '" + planname + "'"
+	jpj, err := db.Query(biubiu)
+
+	if err != nil{
+		w.Write([]byte("-2"))
+		println("cannot get...")
+		return
+	}
+
+
+	var dbName string
+	jpj.Next()
+	jpj.Scan(&dbName)
+
+	if dbName == name {
+		println("it exists, and it is: ... " + dbName )
+		w.Write([]byte("-1"))
+		return
+	}
+
+
+	var q = "INSERT INTO plan (user, planname, import) VALUES ( \"" + name + "\", \"" + planname + "\"," + imp + ")"
+	println(q)
+	_, err = db.Query(q)
+
+	if err != nil{
+		w.Write([]byte("-1"))
+		println(err.Error())
+		println("we cannot create a plan")
+		return
+	}
+
+	if disc != ""{
+		q = "update plan set discription = \"" + disc + "\" where user=\"" +
+			name + "\" and planname=\"" + planname + "\""
+		_, err = db.Query(q)
+		if err != nil{
+			println(err.Error())
+			println("we cannot add disc")
+		}
+	}
+
+	if reminder != ""{
+		q = "update plan set timeremindend= \"" + reminder + "\" where user=\"" +
+			name + "\" and planname=\"" + planname + "\""
+		_, err = db.Query(q)
+		if err != nil{
+			println(err.Error())
+			println("we cannot add reminder")
+		}
+	}
+
+	w.Write([]byte("1"))
+}
+
+func rmplan(w http.ResponseWriter, r * http.Request){
+
+}
+
 // [END handler]
 
 // [START main]
@@ -339,6 +419,8 @@ func main() {
 	http.HandleFunc("/welcome", welc)
 	http.HandleFunc("/cardscreate", createplan)
 	http.HandleFunc("/cards/getwholeplan", getwhole)
+	http.HandleFunc("/cardsedit", getwhole)
+	http.HandleFunc("/cardsremove", getwhole)
 
 	start := time.Now()
 	print(start.Format("2006-01-02 15:04:05"))
