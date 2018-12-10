@@ -150,7 +150,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 			println("user go without an image")
 			println(id)
 		}
-		
+
 
 	}else {
 		println(dbpsw + " is not a correct psw")
@@ -262,11 +262,22 @@ func createplan(w http.ResponseWriter, r * http.Request){
 	db, err := mysql.DialCfg(cfg)
 
 	if err != nil {
-		w.Write([]byte("-1"))
+		w.Write([]byte("-3"))
 		println(err.Error())
 		println("we cannot get the database")
 		return
 	}
+
+
+	var biubiu = "SELECT * from plan Where user = '" + name + "' and planname = '" + planname + "'"
+	_, err = db.Query(biubiu)
+
+	if err != nil{
+		w.Write([]byte("-2"))
+		println("it exists...")
+		return
+	}
+
 
 	var q = "INSERT INTO plan (user, createdate，planname, import) VALUES ( \"" + name + "\", " +
 		time.Now().Format("2018-12-10 23:56:30") + ",\"" + planname + "\"," + imp + ")"
