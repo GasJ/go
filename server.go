@@ -89,7 +89,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		println("we cannot get the database")
 		return
 	}
-	defer db.Close()
+
 
 
 	var q = "select password from wholepeople where username = '" + name + "'"
@@ -110,28 +110,24 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		println(dbpsw + err.Error())
 	}
 
+	db.Close()
 
 	if psw == dbpsw {
 		println("right user is coming in")
 
-		db, err := mysql.DialCfg(cfg)
+		aa, err := mysql.DialCfg(cfg)
 
 
-		//q = "select imageid from wholepeople where username = '" + name + "';"
-		wwwww := "select password from wholepeople where username = '" + name + "'"
+		q = "select imageid from wholepeople where username = '" + name + "';"
 		println(q)
-		image, err := db.Query(wwwww)
-		jojo, err := db.Query(q)
+		image, err := aa.Query(wwwww)
 		defer image.Close()
-
-		db.Query("UPDATE wholepeople SET password='pei' WHERE username='jojo'")
 
 		if err != nil{
 			println("cnm, the problem i workd for hours is: " + err.Error())
 		}
 
 		var id string
-		jojo.Next()
 		for image.Next(){
 			err := image.Scan(id)
 			if err != nil{
