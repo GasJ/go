@@ -249,7 +249,7 @@ func welc(w http.ResponseWriter, r * http.Request)  {
 }
 
 func createplan(w http.ResponseWriter, r * http.Request){
-	println("linked for welcome.")
+	println("linked for creating plan.")
 	var name = r.FormValue("name")
 	var planname = r.FormValue("planname")
 	var imp = r.FormValue("importance")
