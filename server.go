@@ -52,7 +52,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 	jpj.Next()
 	jpj.Scan(&dbName)
 
-	if dbName == psw {
+	if dbName == name {
 		println("dbname is: ... " + dbName )
 		w.Write([]byte("shabi"))
 		return
