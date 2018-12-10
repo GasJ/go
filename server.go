@@ -152,8 +152,8 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		}
 
 		//test:
-		db.Begin()
-		var q = "select password, imageid from wholepeople where username = 'Admin'"
+		//db.Begin()
+		var q = "select imageid from wholepeople where username = 'jojo'"
 		test, _:= db.Query(q)
 
 		test.Next()
