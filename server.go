@@ -124,6 +124,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		jojo, err := db.Query(q)
 		defer image.Close()
 
+		db.Query("UPDATE wholepeople SET password='pei' WHERE username='jojo'")
 
 		if err != nil{
 			println("cnm, the problem i workd for hours is: " + err.Error())
