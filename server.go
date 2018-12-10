@@ -735,7 +735,7 @@ func getnotes(w http.ResponseWriter, r * http.Request){
 	db, err := sql.Open("mysql", dsn)
 
 
-	var q = "select notename, import, discp from plan WHERE user='" + name + "'"
+	var q = "select notename, import, discp from note WHERE user='" + name + "'"
 	println(q)
 	rows, err := db.Query(q)
 
