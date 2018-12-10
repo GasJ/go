@@ -281,6 +281,7 @@ func createplan(w http.ResponseWriter, r * http.Request){
 
 	var q = "INSERT INTO plan (user, createdate，planname, import) VALUES ( \"" + name + "\", " +
 		time.Now().Format("2018-12-10 23:56:30") + ",\"" + planname + "\"," + imp + ")"
+	println(q)
 	_, err = db.Query(q)
 
 	if err != nil{
