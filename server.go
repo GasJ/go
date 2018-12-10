@@ -106,13 +106,13 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	pasw.Scan(&dbpsw)
 	pasw.Close()
 	db.Close()
-	//haha, err := pasw.Columns()
-	//println(haha[0])
+	println(dbpsw)
 
 	if psw == dbpsw {
 		println("right user is coming in")
 
 		db, err := mysql.DialCfg(cfg)
+		db.Begin()
 		//q = "select imageid from wholepeople where username = '" + name + "';"
 		q = "select password from wholepeople where username = '" + name + "'"
 		println(q)
