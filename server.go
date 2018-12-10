@@ -269,15 +269,26 @@ func createplan(w http.ResponseWriter, r * http.Request){
 	}
 
 
-	var biubiu = "SELECT * from plan Where user = '" + name + "' and planname = '" + planname + "'"
-	_, err = db.Query(biubiu)
 
-	if err == nil{
-		w.Write([]byte("-2"))
-		println("it exists...")
+	var biubiu = "SELECT * from plan Where user = '" + name + "' and planname = '" + planname + "'"
+	jpj, err := db.Query(biubiu)
+
+	if err != nil{
+		w.Write([]byte("-3"))
+		println("databasepro...")
 		return
 	}
 
+
+	var dbName string
+	jpj.Next()
+	jpj.Scan(&dbName)
+
+	if dbName != "" {
+		println("it exists, and it is: ... " + dbName )
+		w.Write([]byte("-1"))
+		return
+	}
 
 
 	var q = "INSERT INTO plan (user, planname, import) VALUES ( \"" + name + "\", \"" + planname + "\"," + imp + ")"
