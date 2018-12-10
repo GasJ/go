@@ -144,6 +144,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		default:
 			w.Write([]byte("111"))
 			println("user go without an image")
+			println(id)
 		}
 
 	}else {
