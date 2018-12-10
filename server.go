@@ -392,15 +392,7 @@ func editplans(w http.ResponseWriter, r * http.Request){
 		}
 	}
 
-	if reminder != ""{
-		q = "update plan set timeremindend= \"" + reminder + "\" where user=\"" +
-			name + "\" and planname=\"" + planname + "\""
-		_, err = db.Query(q)
-		if err != nil{
-			println(err.Error())
-			println("we cannot add reminder")
-		}
-	}
+
 
 	w.Write([]byte("1"))
 }
