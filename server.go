@@ -27,51 +27,106 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 	var name = r.FormValue("name")
 	var psw = r.FormValue("psword")
 
-	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s", "starvingmonkey", "lyzsb", "104.154.216.44", "users" )
+	db, err := sql.Open("mysql", dsn)
 
-	cfg.DBName = "users"
-	db, err := mysql.DialCfg(cfg)
 
-	if err != nil {
+	var q = "select password from user WHERE user='" + name + "'"
+	println(q)
+	rows, err := db.Query(q)
+
+	if err != nil{
 		w.Write([]byte("-1"))
 		println(err.Error())
-		println("we cannot get the database")
+		println("we cannot get user lists")
 		return
 	}
 
-	var q = "select password from wholepeople where username='" + name + "'"
-	jpj, err := db.Query(q)
+	aaa, _ :=rows.Columns()
+	println("column size: " , len(aaa))
 
+
+	var (
+		id        string
+
+	)
+	var msg []byte
+	for rows.Next() {
+		err := rows.Scan(&id)
+		if err != nil {
+			println(err.Error())
+		}
+		println(id)
+		if id == psw {
+			println("it exists: ... and psw is " + id )
+			w.Write([]byte("shabi"))
+			return
+		}
+	}
+	err = rows.Err()
 	if err != nil {
-		w.Write([]byte("-1"))
-		println("connecting pro. "  + err.Error())
-		return
-	}
-
-	var dbName string
-	jpj.Next()
-	jpj.Scan(&dbName)
-
-	if dbName == name {
-		println("dbname is: ... " + dbName )
-		w.Write([]byte("shabi"))
-		return
+		println(err.Error())
 	}
 
 	q = "INSERT INTO wholepeople (username, password, imageid) VALUES (\"" + name + "\", \"" + psw + "\", -1)"
-
-
 	_, err = db.Query(q)
-
 	if err == nil{
-		println("succed.")
 		w.Write([]byte("1"))
+		print("succed")
 		return
 	}
 
-	println("shabi....")
-	println(err.Error())
+	print("cannot insert")
 	w.Write([]byte("-1"))
+
+
+
+	//cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+	//
+	//cfg.DBName = "users"
+	//db, err := mysql.DialCfg(cfg)
+	//if err != nil {
+	//	w.Write([]byte("-1"))
+	//	println(err.Error())
+	//	println("we cannot get the database")
+	//	return
+	//}
+	//var q = "select password from wholepeople where username='" + name + "'"
+	//jpj, err := db.Query(q)
+	//
+	//if err != nil {
+	//	w.Write([]byte("-1"))
+	//	println("connecting pro. "  + err.Error())
+	//	return
+	//}
+	//
+	//var dbName string
+	//jpj.Next()
+	//jpj.Scan(&dbName)
+	//
+	//if dbName == name {
+	//	println("dbname is: ... " + dbName )
+	//	w.Write([]byte("shabi"))
+	//	return
+	//}
+	//
+	//q = "INSERT INTO wholepeople (username, password, imageid) VALUES (\"" + name + "\", \"" + psw + "\", -1)"
+	//
+	//
+	//_, err = db.Query(q)
+	//
+	//if err == nil{
+	//	println("succed.")
+	//	w.Write([]byte("1"))
+	//	return
+	//}
+	//
+	//println("shabi....")
+	//println(err.Error())
+	//w.Write([]byte("-1"))
+
+
+
 }
 
 func signing(w http.ResponseWriter, r * http.Request)  {
