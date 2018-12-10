@@ -111,45 +111,10 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 			println("cnm, the problem i workd for hours is: " + err.Error())
 		}
 
-		image.Close()
-
-		var id int
-		var hehe string
-		//image.Next()
-		image.Scan(id)
-		image.Scan(hehe)
-
-
-
-
-		println("first: " + " " + hehe, id)
-
 		image.Next()
-		image.Scan(id)
-		image.Scan(hehe)
+		image.Scan(dbpsw)
 
-		println("second: " + " " + hehe, id)
-
-		image.Next()
-		image.Scan(id)
-		image.Scan(hehe)
-
-		println("third: " + " " + hehe, id)
-		var x = 1
-		for x < 35{
-			image.Next()
-			image.Scan(id)
-			image.Scan(hehe)
-			x++
-			println(x, "s: " + " " + hehe, id)
-		}
-
-		if image.NextResultSet() {
-			println("cnm")
-		}
-
-
-		switch id {
+		switch dbpsw {
 		//case 1:
 		//	w.Write([]byte("11"))
 		//	println("user go with an image")
@@ -171,7 +136,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		//case "7":
 		//	w.Write([]byte("17"))
 		//	println("user go with an image")
-		case 8:
+		case "8":
 			w.Write([]byte("18"))
 			println("user go with an image")
 		//case "9":
@@ -183,7 +148,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		default:
 			w.Write([]byte("111"))
 			println("user go without an image")
-			println(id)
+			println(dbpsw)
 		}
 
 	}else {
@@ -268,7 +233,7 @@ func welc(w http.ResponseWriter, r * http.Request)  {
 		return
 	}
 
-	var q = "UPDATE wholepeople SET imageid=" + img + " WHERE username='" + name + "'"
+	var q = "UPDATE wholepeople SET imageid=\"" + img + "\" WHERE username='" + name + "'"
 	_, err = db.Query(q)
 
 	if err != nil {
