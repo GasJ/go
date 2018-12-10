@@ -45,12 +45,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="go" value="5170" />
+          <entry key="go" value="5328" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Go" value="5170" />
+          <entry key="Go" value="5328" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.go.postfix.template.usages.trigger">
@@ -66,15 +66,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
+            <state relative-caret-position="376">
+              <caret line="818" column="22" selection-start-line="818" selection-start-column="22" selection-end-line="818" selection-end-column="28" />
               <folding>
                 <element signature="e#14#115#0" expanded="true" />
                 <element signature="n#!!block;n#handler#0" />
+                <element signature="n#!!block;n#creating#0" />
                 <element signature="n#!!block;n#signing#0" />
                 <element signature="e#4416#4421#0" />
                 <element signature="n#!!block;n#createplan#0" />
+                <element signature="n#!!block;n#createplan#1" />
                 <element signature="n#!!block;n#editplans#0" />
+                <element signature="n#!!block;n#rmplan#0" />
+                <element signature="n#!!block;n#createplan#1" />
+                <element signature="n#!!block;n#rmnote#0" />
+                <element signature="n#!!block;n#getwhole#1" />
               </folding>
             </state>
           </provider>
@@ -105,8 +111,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="60" />
-    <option name="y" value="189" />
+    <option name="x" value="39" />
+    <option name="y" value="23" />
     <option name="width" value="1252" />
     <option name="height" value="694" />
   </component>
@@ -207,7 +213,7 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="60" y="189" width="1252" height="694" extended-state="0" />
+    <frame x="39" y="23" width="1252" height="694" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30082646" />
@@ -243,15 +249,21 @@
     <entry file="file://$PROJECT_DIR$/sticky.go" />
     <entry file="file://$PROJECT_DIR$/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="56" column="19" selection-start-line="56" selection-start-column="19" selection-end-line="56" selection-end-column="19" />
+        <state relative-caret-position="376">
+          <caret line="818" column="22" selection-start-line="818" selection-start-column="22" selection-end-line="818" selection-end-column="28" />
           <folding>
             <element signature="e#14#115#0" expanded="true" />
             <element signature="n#!!block;n#handler#0" />
+            <element signature="n#!!block;n#creating#0" />
             <element signature="n#!!block;n#signing#0" />
             <element signature="e#4416#4421#0" />
             <element signature="n#!!block;n#createplan#0" />
+            <element signature="n#!!block;n#createplan#1" />
             <element signature="n#!!block;n#editplans#0" />
+            <element signature="n#!!block;n#rmplan#0" />
+            <element signature="n#!!block;n#createplan#1" />
+            <element signature="n#!!block;n#rmnote#0" />
+            <element signature="n#!!block;n#getwhole#1" />
           </folding>
         </state>
       </provider>

@@ -611,11 +611,195 @@ func rmplan(w http.ResponseWriter, r * http.Request){
 	if err != nil{
 		w.Write([]byte("-1"))
 		println(err.Error())
+		println("we cannot remove a plan")
+		return
+	}
+
+	w.Write([]byte("1"))
+
+}
+
+
+func createnote(w http.ResponseWriter, r * http.Request){
+	println("linked for creating plan.")
+	var name = r.FormValue("name")
+	var planname = r.FormValue("notename")
+	var imp = r.FormValue("disp")
+
+	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+
+	cfg.DBName = "users"
+	db, err := mysql.DialCfg(cfg)
+
+	if err != nil {
+		w.Write([]byte("-3"))
+		println(err.Error())
+		println("we cannot get the database")
+		return
+	}
+
+
+
+	var biubiu = "SELECT user from note Where notename = '" + planname + "'"
+	jpj, err := db.Query(biubiu)
+
+	if err != nil{
+		w.Write([]byte("-2"))
+		println("cannot get...")
+		return
+	}
+
+
+	var dbName string
+	var jo = true
+	for jo{
+		jpj.Next()
+		err = jpj.Scan(&dbName)
+		println("name: " + name + "curname: " + dbName)
+		if dbName == name {
+			println("it exists, and it is: ... " + dbName + name )
+			w.Write([]byte("-1"))
+			return
+		} else if dbName == "" || err != nil {
+			jo = false
+		}
+	}
+
+
+
+	var q = "INSERT INTO note (user, notename, discp) VALUES ( \"" + name + "\", \"" + planname + "\"," + imp + ")"
+	println(q)
+	_, err = db.Query(q)
+
+	if err != nil{
+		w.Write([]byte("-1"))
+		println(err.Error())
 		println("we cannot create a plan")
 		return
 	}
 
 	w.Write([]byte("1"))
+}
+
+func rmnote(w http.ResponseWriter, r * http.Request){
+	println("linked for removing plan.")
+	var name = r.FormValue("name")
+	var planname = r.FormValue("notename")
+
+	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+
+	cfg.DBName = "users"
+	db, err := mysql.DialCfg(cfg)
+
+	if err != nil {
+		w.Write([]byte("-3"))
+		println(err.Error())
+		println("we cannot get the database")
+		return
+	}
+
+
+	var q = "delete from note WHERE notename='" + planname +"' and user = '" + name +"'"
+	println(q)
+	_, err = db.Query(q)
+
+	if err != nil{
+		w.Write([]byte("-1"))
+		println(err.Error())
+		println("we cannot remove a note")
+		return
+	}
+
+	w.Write([]byte("1"))
+
+}
+
+func getnotes(w http.ResponseWriter, r * http.Request){
+	println("linked for whole notes.")
+	var name = r.FormValue("name")
+
+	//cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+	//
+	//cfg.DBName = "users"
+	//db, err := mysql.DialCfg(cfg)
+	//
+	//if err != nil {
+	//	w.Write([]byte("-3"))
+	//	println(err.Error())
+	//	println("we cannot get the database")
+	//	return
+	//}
+
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s", "starvingmonkey", "lyzsb", "104.154.216.44", "users" )
+	db, err := sql.Open("mysql", dsn)
+
+
+	var q = "select notename, import, discp from plan WHERE user='" + name + "'"
+	println(q)
+	rows, err := db.Query(q)
+
+
+
+	if err != nil{
+		w.Write([]byte("-1"))
+		println(err.Error())
+		println("we cannot get your note")
+		return
+	}
+
+	aaa, _ :=rows.Columns()
+	println("column size: " , len(aaa))
+
+
+	var (
+		notename string
+		disc     string
+	)
+	var msg []byte
+	for rows.Next() {
+		err := rows.Scan(&notename, &disc)
+		if err != nil {
+			println(err.Error())
+		}
+		println(notename, disc)
+		mmm := append(msg, []byte(notename+ "," + string(disc) + "\n")...)
+		msg = mmm
+	}
+	err = rows.Err()
+	if err != nil {
+		println(err.Error())
+	}
+
+	w.Write(msg)
+
+	//var pn string
+	//var ip string
+	//var di string
+	//var jo = true
+	//var msg []byte
+	//for jo{
+	//	//jpj.Next()
+	//	jpj.NextResultSet()
+	//	err = jpj.Scan(&pn, &ip, &di)
+	//	if err != nil{
+	//		println("shabi " + err.Error())
+	//		//jo = false
+	//		if err.Error() == "sql: Rows are closed"{
+	//			jo=false
+	//		}
+	//	}
+	//	if pn == ""{
+	//		jo = false
+	//	}
+	//	println("current: " + pn + ip + di)
+	//	mmmm := append([]byte(pn + "," + string(ip) + "," + di + "\n"))
+	//	msg = mmmm
+	//}
+
+
+
+
 
 }
 
@@ -631,6 +815,9 @@ func main() {
 	http.HandleFunc("/cards/getwholeplan", getwhole)
 	http.HandleFunc("/cardsedit", editplans)
 	http.HandleFunc("/cardsremove", rmplan)
+	http.HandleFunc("/notecre", createnote)
+	http.HandleFunc("/noterm", rmnote)
+	http.HandleFunc("/notes", getnotes)
 
 	start := time.Now()
 	print(start.Format("2006-01-02 15:04:05"))
