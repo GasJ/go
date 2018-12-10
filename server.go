@@ -355,7 +355,7 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 
 	var q = "select planname, import, discription from plan WHERE user='" + name + "'"
 	println(q)
-	jpj, err := db.Query(q)
+	rows, err := db.Query(q)
 
 
 
@@ -366,34 +366,58 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 		return
 	}
 
-	aaa, _ :=jpj.Columns()
+	aaa, _ :=rows.Columns()
 	println("column size: " , len(aaa))
 
-	var pn string
-	var ip string
-	var di string
-	var jo = true
+
+	var (
+		id        string
+		firstName string
+		lastName  string
+
+	)
 	var msg []byte
-	for jo{
-		//jpj.Next()
-		jpj.NextResultSet()
-		err = jpj.Scan(&pn, &ip, &di)
-		if err != nil{
-			println("shabi " + err.Error())
-			//jo = false
-			if err.Error() == "sql: Rows are closed"{
-				jo=false
-			}
+	for rows.Next() {
+		err := rows.Scan(&id, &firstName, &lastName)
+		if err != nil {
+			println(err.Error())
 		}
-		if pn == ""{
-			jo = false
-		}
-		println("current: " + pn + ip + di)
-		mmmm := append([]byte(pn + "," + string(ip) + "," + di + "\n"))
+		println("%v: %s %s", id, firstName, lastName)
+		mmmm := append([]byte(id + "," + string(firstName) + "," + lastName + "\n"))
 		msg = mmmm
+	}
+	err = rows.Err()
+	if err != nil {
+		println(err.Error())
 	}
 
 	w.Write(msg)
+
+	//var pn string
+	//var ip string
+	//var di string
+	//var jo = true
+	//var msg []byte
+	//for jo{
+	//	//jpj.Next()
+	//	jpj.NextResultSet()
+	//	err = jpj.Scan(&pn, &ip, &di)
+	//	if err != nil{
+	//		println("shabi " + err.Error())
+	//		//jo = false
+	//		if err.Error() == "sql: Rows are closed"{
+	//			jo=false
+	//		}
+	//	}
+	//	if pn == ""{
+	//		jo = false
+	//	}
+	//	println("current: " + pn + ip + di)
+	//	mmmm := append([]byte(pn + "," + string(ip) + "," + di + "\n"))
+	//	msg = mmmm
+	//}
+
+
 
 
 
