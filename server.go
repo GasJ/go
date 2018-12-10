@@ -281,16 +281,17 @@ func createplan(w http.ResponseWriter, r * http.Request){
 
 
 	var dbName string
-	jpj.Next()
-	jpj.Scan(&dbName)
-
-	println("name: " + name + "curname: " + dbName)
-	if dbName == name {
-		println("it exists, and it is: ... " + dbName + name )
-		w.Write([]byte("-1"))
-		return
+	for jpj.Next(){
+		jpj.Scan(&dbName)
+		println("name: " + name + "curname: " + dbName)
+		if dbName == name {
+			println("it exists, and it is: ... " + dbName + name )
+			w.Write([]byte("-1"))
+			return
+		}
 	}
 
+	
 
 	var q = "INSERT INTO plan (user, planname, import) VALUES ( \"" + name + "\", \"" + planname + "\"," + imp + ")"
 	println(q)
