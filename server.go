@@ -120,7 +120,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 		q = "select imageid from wholepeople where username = '" + name + "';"
 		println(q)
-		image, err := aa.Query(wwwww)
+		image, err := aa.Query(q)
 		defer image.Close()
 
 		if err != nil{
