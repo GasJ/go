@@ -383,8 +383,8 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 			println(err.Error())
 		}
 		println("%v: %s %s", id, firstName, lastName)
-		mmmm := append([]byte(id + "," + string(firstName) + "," + lastName + "\n"))
-		msg = mmmm
+		mmm := append(msg, []byte(id + "," + string(firstName) + "," + lastName + "\n")...)
+		msg = mmm
 	}
 	err = rows.Err()
 	if err != nil {
