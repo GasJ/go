@@ -50,7 +50,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 		id        string
 
 	)
-	var msg []byte
+
 	for rows.Next() {
 		err := rows.Scan(&id)
 		if err != nil {
