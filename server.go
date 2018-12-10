@@ -31,7 +31,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 	db, err := sql.Open("mysql", dsn)
 
 
-	var q = "select password from user WHERE user='" + name + "'"
+	var q = "select password from wholepeople WHERE user='" + name + "'"
 	println(q)
 	rows, err := db.Query(q)
 
