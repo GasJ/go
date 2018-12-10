@@ -157,12 +157,12 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		test, _:= db.Query(q)
 
 		test.Next()
-		err := test.Scan(&dbpsw, &id)
+		err := test.Scan(&id)
 
 		if err != nil{
 			println("shabia " + err.Error())
 		}
-		println(dbpsw + id +"hehe")
+		println(id +"hehe")
 
 	}else {
 		println(dbpsw + " is not a correct psw")
