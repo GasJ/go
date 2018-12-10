@@ -105,8 +105,11 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	}
 	var dbpsw string
 	pasw.Next()
-	pasw.Scan(&dbpsw)
-	println(dbpsw)
+	err := pasw.Scan(&dbpsw)
+	if err != nil{
+		println(dbpsw + err.Error())
+	}
+
 
 	if psw == dbpsw {
 		println("right user is coming in")
