@@ -359,14 +359,15 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 		return
 	}
 
+	aaa, _ :=jpj.Columns()
+	println("column size: " , len(aaa))
+
 	var pn string
 	var ip string
 	var di string
 	var jo = true
 	var msg []byte
 	for jo{
-		jpj.Next()
-		jpj.Next()
 		jpj.Next()
 		err = jpj.Scan(&pn, &ip, &di)
 		if err != nil{
@@ -379,6 +380,7 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 		if pn == ""{
 			jo = false
 		}
+
 		println("current: " + pn + ip + di)
 		mmmm := append([]byte(pn + "," + string(ip) + "," + di + "\n"))
 		msg = mmmm
