@@ -370,8 +370,7 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 			println("shabi " + err.Error())
 			jo = false
 		}
-		pupu, _ := jpj.Columns()
-		println("current: " + pn + string(len(pupu)))
+		println("current: " + pn + ip, di)
 		if pn == ""{
 			jo = false
 		}
