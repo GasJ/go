@@ -112,6 +112,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		}
 
 		image.Next()
+		image.Next()
 		image.Scan(dbpsw)
 
 		switch dbpsw {
