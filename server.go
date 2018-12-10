@@ -51,7 +51,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 	jpj.Next()
 	jpj.Scan(&dbName)
 
-	if dbName == name {
+	if dbName == psw {
 		println("dbname is: ... " + dbName )
 		w.Write([]byte("shabi"))
 		return
@@ -332,15 +332,8 @@ func createplan(w http.ResponseWriter, r * http.Request){
 }
 
 func getwhole(w http.ResponseWriter, r * http.Request){
-
-}
-
-func editplans(w http.ResponseWriter, r * http.Request){
 	println("linked for creating plan.")
 	var name = r.FormValue("name")
-	var planname = r.FormValue("planname")
-	var imp = r.FormValue("importance")
-	var disc = r.FormValue("discription")
 
 	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
 
@@ -355,29 +348,53 @@ func editplans(w http.ResponseWriter, r * http.Request){
 	}
 
 
-
-	var biubiu = "SELECT user from plan Where planname = '" + planname + "'"
-	jpj, err := db.Query(biubiu)
+	var q = "select planname, import, discription from plan WHERE user='" + name + "'"
+	println(q)
+	jpj, err := db.Query(q)
 
 	if err != nil{
-		w.Write([]byte("-2"))
-		println("cannot get...")
+		w.Write([]byte("-1"))
+		println(err.Error())
+		println("we cannot get your plan")
 		return
 	}
-
 
 	var dbName string
-	jpj.Next()
-	jpj.Scan(&dbName)
+	var jo = true
+	for jo{
+		jpj.Next()
+		err = jpj.Scan(&dbName)
+		pupu, _ := jpj.Columns()
+		println("curname: " + dbName + pupu[0])
+	}
 
-	if dbName == name {
-		println("it exists, and it is: ... " + dbName + name )
-		w.Write([]byte("-1"))
+
+
+}
+
+func editplans(w http.ResponseWriter, r * http.Request){
+	println("linked for creating plan.")
+	var name = r.FormValue("name")
+	var planname = r.FormValue("planname")
+	var imp = r.FormValue("importance")
+	var disc = r.FormValue("discription")
+	var oldone = r.FormValue("oldone")
+
+	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+
+	cfg.DBName = "users"
+	db, err := mysql.DialCfg(cfg)
+
+	if err != nil {
+		w.Write([]byte("-3"))
+		println(err.Error())
+		println("we cannot get the database")
 		return
 	}
 
 
-	var q = "INSERT INTO plan (user, planname, import) VALUES ( \"" + name + "\", \"" + planname + "\"," + imp + ")"
+	var q = "UPDATE table plan SET planname='" + planname +"', import="+ imp +"   WHERE user=\"" +
+		name + "\" and planname=\"" + oldone + "\""
 	println(q)
 	_, err = db.Query(q)
 
@@ -398,12 +415,39 @@ func editplans(w http.ResponseWriter, r * http.Request){
 		}
 	}
 
-
-
 	w.Write([]byte("1"))
 }
 
 func rmplan(w http.ResponseWriter, r * http.Request){
+	println("linked for removing plan.")
+	var name = r.FormValue("name")
+	var planname = r.FormValue("planname")
+
+	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+
+	cfg.DBName = "users"
+	db, err := mysql.DialCfg(cfg)
+
+	if err != nil {
+		w.Write([]byte("-3"))
+		println(err.Error())
+		println("we cannot get the database")
+		return
+	}
+
+
+	var q = "delete from plan WHERE planname='" + planname +"' and user = '" + name +"'"
+	println(q)
+	_, err = db.Query(q)
+
+	if err != nil{
+		w.Write([]byte("-1"))
+		println(err.Error())
+		println("we cannot create a plan")
+		return
+	}
+
+	w.Write([]byte("1"))
 
 }
 
@@ -417,8 +461,8 @@ func main() {
 	http.HandleFunc("/welcome", welc)
 	http.HandleFunc("/cardscreate", createplan)
 	http.HandleFunc("/cards/getwholeplan", getwhole)
-	http.HandleFunc("/cardsedit", getwhole)
-	http.HandleFunc("/cardsremove", getwhole)
+	http.HandleFunc("/cardsedit", editplans)
+	http.HandleFunc("/cardsremove", rmplan)
 
 	start := time.Now()
 	print(start.Format("2006-01-02 15:04:05"))
