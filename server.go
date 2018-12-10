@@ -56,7 +56,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 		return
 	}
 
-	q = "INSERT INTO wholepeople (username, password) VALUES (\"" + name + "\", \"" + psw + "\")"
+	q = "INSERT INTO wholepeople (username, password, imageid) VALUES (\"" + name + "\", \"" + psw + "\", -1)"
 
 
 	_, err = db.Query(q)
