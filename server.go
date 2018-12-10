@@ -503,6 +503,7 @@ func editplans(w http.ResponseWriter, r * http.Request){
 		if id == oldone{
 			var q = "UPDATE table plan SET planname='" + planname +"', import="+ imp +"   WHERE user=\"" +
 				name + "\" and planname=\"" + oldone + "\""
+			println(q)
 			_, err = db.Query(q)
 			if err != nil{
 				println(err.Error())
