@@ -365,7 +365,7 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 		jpj.Next()
 		err = jpj.Scan(&dbName)
 		pupu, _ := jpj.Columns()
-		println("curname: " + dbName + pupu[0])
+		println("curname: " + dbName + string(len(pupu)))
 	}
 
 
