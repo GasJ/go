@@ -365,7 +365,7 @@ func editplans(w http.ResponseWriter, r * http.Request){
 	jpj.Scan(&dbName)
 
 	if dbName == name {
-		println("it exists, and it is: ... " + dbName )
+		println("it exists, and it is: ... " + dbName + name )
 		w.Write([]byte("-1"))
 		return
 	}
