@@ -4,6 +4,7 @@ import (
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	"net/http"
 	"time"
+
 )
 
 // [START handler]
@@ -73,6 +74,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 }
 
 func signing(w http.ResponseWriter, r * http.Request)  {
+
 	println("linked for signing.")
 	var name = r.FormValue("name")
 	var psw = r.FormValue("psword")
@@ -103,16 +105,21 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 	pasw.Next()
 	pasw.Scan(&dbpsw)
 	pasw.Close()
-
+	db.Close()
 	//haha, err := pasw.Columns()
 	//println(haha[0])
 
 	if psw == dbpsw {
 		println("right user is coming in")
+
+		db, err := mysql.DialCfg(cfg)
 		//q = "select imageid from wholepeople where username = '" + name + "';"
 		q = "select password from wholepeople where username = '" + name + "'"
 		println(q)
+		db.QueryRow(q)
+
 		image, err := db.Query(q)
+
 
 		if err != nil{
 			println("cnm, the problem i workd for hours is: " + err.Error())
