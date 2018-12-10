@@ -54,7 +54,7 @@ func creating(w http.ResponseWriter, r * http.Request)  {
 			println(err.Error())
 		}
 		println(id)
-		if id == psw {
+		if id != "" {
 			println("it exists: ... and psw is " + id )
 			w.Write([]byte("shabi"))
 			return
