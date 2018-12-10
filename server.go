@@ -363,6 +363,7 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 	var ip string
 	var di string
 	var jo = true
+	var msg []byte
 	for jo{
 		jpj.Next()
 		err = jpj.Scan(&pn, &ip, &di)
@@ -370,11 +371,15 @@ func getwhole(w http.ResponseWriter, r * http.Request){
 			println("shabi " + err.Error())
 			jo = false
 		}
-		println("current: " + pn + ip, di)
 		if pn == ""{
 			jo = false
 		}
+		println("current: " + pn + ip + di)
+		mmmm := append([]byte(pn + "," + string(ip) + di + "\n"))
+		msg = mmmm
 	}
+
+	w.Write(msg)
 
 
 
