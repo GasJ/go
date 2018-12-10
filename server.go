@@ -150,19 +150,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 			println("user go without an image")
 			println(id)
 		}
-
-		//test:
-		//db.Begin()
-		var q = "select imageid from wholepeople where username = 'jojo'"
-		test, _:= db.Query(q)
-
-		test.Next()
-		err := test.Scan(&id)
-
-		if err != nil{
-			println("shabia " + err.Error())
-		}
-		println(id +"hehe")
+		
 
 	}else {
 		println(dbpsw + " is not a correct psw")
