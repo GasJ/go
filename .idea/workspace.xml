@@ -66,8 +66,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="505" column="21" selection-start-line="505" selection-start-column="21" selection-end-line="505" selection-end-column="21" />
+            <state relative-caret-position="130">
+              <caret line="503" column="27" selection-start-line="503" selection-start-column="27" selection-end-line="503" selection-end-column="27" />
               <folding>
                 <element signature="e#14#115#0" expanded="true" />
                 <element signature="n#!!block;n#handler#0" />
@@ -244,8 +244,8 @@
     <entry file="file://$PROJECT_DIR$/sticky.go" />
     <entry file="file://$PROJECT_DIR$/server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="505" column="21" selection-start-line="505" selection-start-column="21" selection-end-line="505" selection-end-column="21" />
+        <state relative-caret-position="130">
+          <caret line="503" column="27" selection-start-line="503" selection-start-column="27" selection-end-line="503" selection-end-column="27" />
           <folding>
             <element signature="e#14#115#0" expanded="true" />
             <element signature="n#!!block;n#handler#0" />
