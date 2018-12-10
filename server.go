@@ -111,11 +111,13 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 			println("cnm, the problem i workd for hours is: " + err.Error())
 		}
 
+		var id string
+		image.Scan(id)
 		image.Next()
 		image.Next()
 		image.Scan(dbpsw)
 
-		switch dbpsw {
+		switch id {
 		case "1":
 			w.Write([]byte("11"))
 			println("user go with an image")
@@ -149,7 +151,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		default:
 			w.Write([]byte("111"))
 			println("user go without an image")
-			println(dbpsw)
+			println(id, dbpsw)
 		}
 
 	}else {
