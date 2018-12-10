@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/mysql"
 	"net/http"
+	"time"
 )
 
 // [START handler]
@@ -93,19 +94,60 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 
 	if err != nil {
 		println(err.Error())
-		println("something wrong with username or passworld")
+		println("something wrong with username")
 		w.Write([]byte("-1"))
 		return
 	}
-	var dbName string
+	var dbpsw string
 	pasw.Next()
-	pasw.Scan(&dbName)
+	pasw.Scan(&dbpsw)
 
-	if psw == dbName {
+	if psw == dbpsw {
 		println("right user is coming in")
-		w.Write([]byte("1"))
+		q = "select imageid from wholepeopl where username = '" + name + "'"
+		image, _ := db.Query(q)
+		var id int
+		image.Next()
+		image.Scan(id)
+
+		switch id {
+		case 1:
+			w.Write([]byte("11"))
+			println("user go with an image")
+		case 2:
+			w.Write([]byte("12"))
+			println("user go with an image")
+		case 3:
+			w.Write([]byte("13"))
+			println("user go with an image")
+		case 4:
+			w.Write([]byte("14"))
+			println("user go with an image")
+		case 5:
+			w.Write([]byte("15"))
+			println("user go with an image")
+		case 6:
+			w.Write([]byte("16"))
+			println("user go with an image")
+		case 7:
+			w.Write([]byte("17"))
+			println("user go with an image")
+		case 8:
+			w.Write([]byte("18"))
+			println("user go with an image")
+		case 9:
+			w.Write([]byte("19"))
+			println("user go with an image")
+		case 10:
+			w.Write([]byte("110"))
+			println("user go with an image")
+		default:
+			w.Write([]byte("111"))
+			println("user go without an image")
+		}
+
 	}else {
-		println(dbName + " is not a correct psw")
+		println(dbpsw + " is not a correct psw")
 		w.Write([]byte("shabi, hehe, -1"))
 	}
 
@@ -169,6 +211,94 @@ test finished */
 	//)
 }
 
+func welc(w http.ResponseWriter, r * http.Request)  {
+	println("linked for welcome.")
+	var name = r.FormValue("name")
+	var img = r.FormValue("img")
+
+	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+
+	cfg.DBName = "users"
+	db, err := mysql.DialCfg(cfg)
+
+	if err != nil {
+		w.Write([]byte("-1"))
+		println(err.Error())
+		println("we cannot get the database")
+		return
+	}
+
+	var q = "UPDATE wholepeople SET imageid=" + img + " WHERE username='" + name + "'"
+	_, err = db.Query(q)
+
+	if err != nil {
+		w.Write([]byte("-1"))
+		println("cannot set imageid. "  + err.Error())
+		return
+	}
+
+	w.Write([]byte("hehe"))
+	println(name + "go with an imageid.")
+
+}
+
+func createplan(w http.ResponseWriter, r * http.Request){
+	println("linked for welcome.")
+	var name = r.FormValue("name")
+	var planname = r.FormValue("planname")
+	var imp = r.FormValue("importance")
+	var disc = r.FormValue("discription")
+	var reminder = r.FormValue("remind")
+
+	cfg := mysql.Cfg("glossy-radio-224901:us-central1:firstnote", "starvingmonkey", "lyzsb")
+
+	cfg.DBName = "users"
+	db, err := mysql.DialCfg(cfg)
+
+	if err != nil {
+		w.Write([]byte("-1"))
+		println(err.Error())
+		println("we cannot get the database")
+		return
+	}
+
+	var q = "INSERT INTO plan (user, createdate，planname, import) VALUES ( \"" + name + "\", " +
+		time.Now().Format("2018-12-10 23:56:30") + ",\"" + planname + "\"," + imp + ")"
+	_, err = db.Query(q)
+
+	if err != nil{
+		w.Write([]byte("-1"))
+		println(err.Error())
+		println("we cannot create a plan")
+		return
+	}
+
+	if disc != ""{
+		q = "update plan set discription = \"" + disc + "\" where user=\"" +
+			name + "\" and planname=\"" + planname + "\""
+		_, err = db.Query(q)
+		if err != nil{
+			println(err.Error())
+			println("we cannot add disc")
+		}
+	}
+
+	if reminder != ""{
+		q = "update plan set timeremindend= \"" + reminder + "\" where user=\"" +
+			name + "\" and planname=\"" + planname + "\""
+		_, err = db.Query(q)
+		if err != nil{
+			println(err.Error())
+			println("we cannot add reminder")
+		}
+	}
+
+	w.Write([]byte("1"))
+}
+
+func getwhole(w http.ResponseWriter, r * http.Request){
+
+}
 
 // [END handler]
 
@@ -177,6 +307,12 @@ func main() {
 	http.HandleFunc("/stickynote", handler)
 	http.HandleFunc("/signin", signing)
 	http.HandleFunc("/create", creating)
+	http.HandleFunc("/welcome", welc)
+	http.HandleFunc("/cards/createplan", createplan)
+	http.HandleFunc("/cards/getwholeplan", getwhole)
+
+	start := time.Now()
+	print(start.Format("2006-01-02 15:04:05"))
 
 	//var name  = "jojo"
 	//var psw = "heh"
