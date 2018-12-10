@@ -99,7 +99,7 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		return
 	}
 	var dbpsw string
-	pasw.Next()
+	//pasw.Next()
 	pasw.Scan(&dbpsw)
 
 	if psw == dbpsw {
