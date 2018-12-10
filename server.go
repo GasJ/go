@@ -112,8 +112,29 @@ func signing(w http.ResponseWriter, r * http.Request)  {
 		}
 
 		var id int
+		var hehe string
 		//image.Next()
 		image.Scan(id)
+		image.Scan(hehe)
+
+		println("first: %d" + " " + hehe, id)
+
+		image.Next()
+		image.Scan(id)
+		image.Scan(hehe)
+
+		println("second: %d" + " " + hehe, id)
+
+		image.Next()
+		image.Scan(id)
+		image.Scan(hehe)
+
+		println("third: %d" + " " + hehe, id)
+
+		if image.NextResultSet() {
+			println("cnm")
+		}
+
 
 		switch id {
 		//case 1:
